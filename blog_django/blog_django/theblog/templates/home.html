@@ -1,19 +1,39 @@
 {% extends 'base.html' %} {% block content %}
+<style>
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+  .customize-option {
+    margin-left: 10px;
+  }
+</style>
+
 <h1>Posts</h1>
 
 <a href="{% url 'add-post' %}">Create post</a>
 
 {% for post in object_list %}
-<div>
-  {% if request.user.id == post.author.id %}
-  <a href="{% url 'update-post' post.id %}">Edit</a>
-  <a href="{% url 'delete-post' post.id %}">Delete</a>
-  {% endif %}
-  <h3>
-    <a href="{% url 'article-detail' post.id %}">{{post.title}}</a> --
-    {{post.author.first_name}} {{post.author.last_name}}
-  </h3>
+<div class="card mt-3 p-3">
+  <div class="flex card-body">
+    <h3>
+      <a href="{% url 'article-detail' post.id %}">{{post.title}}</a> --
+      {{post.author.first_name}} {{post.author.last_name}}
+    </h3>
+    {% if request.user.id == post.author.id %}
+    <small>
+      <a href="{% url 'update-post' post.id %}" class="customize-option"
+        >(Edit)</a
+      >
+    </small>
+    <small>
+      <a href="{% url 'delete-post' post.id %}" class="customize-option"
+        >(Delete)</a
+      >
+    </small>
+    {% endif %}
+  </div>
   <p>{{post.body}}</p>
-  <hr />
+  <p>Created at {{post.createdAt}}</p>
 </div>
 {% endfor %} {% endblock content %}
