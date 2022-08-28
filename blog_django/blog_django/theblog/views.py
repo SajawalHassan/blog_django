@@ -1,6 +1,6 @@
-from ast import Delete
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from django.urls import reverse
 
 # Create your views here.
 
@@ -19,3 +19,15 @@ class AddPostView(CreateView):
     model = Post
     template_name = "add_post.html"
     fields = '__all__'
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    template_name = "update_post.html"
+    fields = '__all__'
+
+
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = "delete_post.html"
+    success_url = "/"
