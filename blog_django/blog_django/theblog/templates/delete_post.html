@@ -1,7 +1,20 @@
-{% extends 'base.html' %} {% block content %}
-<form action="" method="POST">
-  {% csrf_token %}
-  <p>Are you sure you want to delete this post?</p>
-  <button type="submit">Delete</button>
+{% extends 'base.html' %} {% block title %}Delete "{{post.title}}"{% endblock title %} {% block content %}
+{% if request.user.id == post.author.id %}
+<center class="card">
+  <form action="" method="POST" class="card-body">
+    {% csrf_token %}
+    <h3>Are you sure you want to delete "{{post.title}}"?</h3>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <button
+    class="btn btn-primary"
+    onClick="javascript:history.go(-1);"
+    type="button"
+    >
+    Go Back
+  </button>
 </form>
+</center>
+{% else %}
+<h3>You are not allowed to delete "post.title" you sneaky idiot!</h3>
+{% endif %}
 {% endblock content %}

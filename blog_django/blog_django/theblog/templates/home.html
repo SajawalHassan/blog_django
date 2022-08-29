@@ -1,22 +1,33 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block title %}Home{% endblock title %} {% block content %}
 <style>
   .flex {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .customize-option {
     margin-left: 10px;
   }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 </style>
 
-<h1>Posts</h1>
+<div class="header">
+  <h1 class="mr-3">Posts</h1>
 
-<a href="{% url 'add-post' %}">Create post</a>
+  <a href="{% url 'add-post' %}">
+    <button class="btn btn-secondary">Create post</button>
+  </a>
+</div>
 
 {% for post in object_list %}
 <div class="card mt-3 p-3">
-  <div class="flex card-body">
-    <h3>
+  <div class="flex">
+    <h3 class="m-0">
       <a href="{% url 'article-detail' post.id %}">{{post.title}}</a> --
       {{post.author.first_name}} {{post.author.last_name}}
     </h3>
@@ -33,7 +44,7 @@
     </small>
     {% endif %}
   </div>
-  <p>{{post.body}}</p>
+  <p class="text-truncate">{{post.body}}</p>
   <p>Created at {{post.createdAt}}</p>
 </div>
 {% endfor %} {% endblock content %}
